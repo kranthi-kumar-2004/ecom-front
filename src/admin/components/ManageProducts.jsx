@@ -7,7 +7,9 @@ function ManageProducts() {
     const [showPopup, setShowPopup] = useState(false);
     const [editId, setEditId] = useState(null);
     const [menuIndex, setMenuIndex] = useState(null);
+    const API = import.meta.env.VITE_API_URL;
 
+fetch(`${API}/api/orders`)
     const [form, setForm] = useState({
         name: "",
         price: "",
