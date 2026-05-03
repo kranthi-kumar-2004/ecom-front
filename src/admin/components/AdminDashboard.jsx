@@ -10,6 +10,9 @@ function AdminDashboard() {
     const [totalO, setTotalO] = useState(0);
     const [revenue, setRevenue] = useState(0);
     const [recentOrders, setRecentOrders] = useState([]);
+    const API = import.meta.env.VITE_API_URL;
+
+fetch(`${API}/api/orders`)
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('en-IN', {
             style: 'currency',
