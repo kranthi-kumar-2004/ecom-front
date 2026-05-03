@@ -8,7 +8,7 @@ function ManageProducts() {
     const [editId, setEditId] = useState(null);
     const [menuIndex, setMenuIndex] = useState(null);
     const API = import.meta.env.VITE_API_URL;
-console.log("API:", import.meta.env.VITE_API_URL);
+    
     const [form, setForm] = useState({
         name: "",
         price: "",
