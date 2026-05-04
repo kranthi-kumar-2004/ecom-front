@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./css/Checkout.css";
-
+ 
 const Checkout = () => {
   const [cart, setCart] = useState({ items: [] });
   const [loading, setLoading] = useState(true);
