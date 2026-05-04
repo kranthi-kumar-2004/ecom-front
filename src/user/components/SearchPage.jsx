@@ -6,27 +6,40 @@ function SearchPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL;
-  const query = new URLSearchParams(location.search).get("q");
+  const params = new URLSearchParams(location.search);
 
+  const query = params.get("q");
+  const category = params.get("category");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!query) return;
+   useEffect(() => {
+  if (!query && !category) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    fetch(`${API}/products/search?name=${query}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [query]);
+  let url = "";
+
+  if (query && category) {
+    url = `${API}/products/search-all?q=${query}&category=${category}`;
+  } else if (query) {
+    url = `${API}/products/search?name=${query}`;
+  } else if (category) {
+    url = `${API}/products/category?name=${category}`;
+  }
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      setProducts(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error(err);
+      setLoading(false);
+    });
+
+}, [query, category]);
 
   return (
     <div className="search-container">
