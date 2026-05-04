@@ -242,7 +242,7 @@ const Checkout = () => {
         </button>
       </div>
       {selectedAddress && (
-        <div className="ckx-card">
+        <div className="ckx-card"> 
           <h3>Delivery Address</h3>
 
           <div style={{ fontSize: "14px", lineHeight: "1.5" }}>
