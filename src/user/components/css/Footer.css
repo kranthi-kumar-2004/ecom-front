@@ -68,8 +68,3 @@ body {
   font-size: 14px;
   color: #aab4c2;
 }
-@media (max-width: 425px) {
-.footer{
-  display: none;
-};
-}
