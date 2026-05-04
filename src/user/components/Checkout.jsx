@@ -172,7 +172,7 @@ const Checkout = () => {
       const orderData = await orderRes.json();
 
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY;
+        key: import.meta.env.VITE_RAZORPAY_KEY,
         amount: orderData.amount,
         currency: "INR",
         order_id: orderData.id,
