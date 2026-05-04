@@ -179,7 +179,7 @@ const Checkout = () => {
         prefill: {
         name: selectedAddress.name,
         contact: selectedAddress.phone
-        }
+        },
         handler: async (response) => {
           await fetch(`${API}/api/checkout/payment/verify`, {
             method: "POST",
