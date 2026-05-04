@@ -18,7 +18,11 @@ import ManageOrders from "./admin/components/ManageOrders";
 import ManageUsers from "./admin/components/ManageUsers";
 import OrderDetails from "./user/components/OrderDetails";
 import AddressSelector from "./user/components/AddressSelector";
-
+import About from "./user/components/About";
+import Contact from "./user/components/Contact";
+import RefundPolicy from "./user/components/RefundPolicy";
+import PrivacyPolicy from "./user/components/PrivacyPolicy";
+import Terms from "./user/components/Terms";
 function App() {
     return (<>
         <BrowserRouter>
@@ -33,7 +37,12 @@ function App() {
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/order/:id" element={<OrderDetails />} />
-                    <Route path="/Address" element={<AddressSelector/>}/>
+                    <Route path="/Address" element={<AddressSelector />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/refund-policy" element={<RefundPolicy />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/terms" element={<Terms />} />
                 </Route>
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route index element={<AdminDashboard />} />
