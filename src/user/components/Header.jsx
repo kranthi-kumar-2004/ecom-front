@@ -27,9 +27,10 @@ function Header() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
   const handleSearch = () => {
-    if (!searchText.trim()) return;
-    navigate(`/search?q=${searchText}`);
-  };
+  if (!searchText.trim()) return;
+
+  navigate(`/search?q=${searchText}&category=${searchText}`);
+};
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSearch();
