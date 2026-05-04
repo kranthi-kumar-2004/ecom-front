@@ -176,10 +176,6 @@ const Checkout = () => {
         amount: orderData.amount,
         currency: "INR",
         order_id: orderData.id,
-        prefill: {
-        name: selectedAddress.name,
-        contact: selectedAddress.phone
-        },
         handler: async (response) => {
           await fetch(`${API}/api/checkout/payment/verify`, {
             method: "POST",
