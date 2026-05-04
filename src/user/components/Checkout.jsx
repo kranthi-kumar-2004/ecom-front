@@ -172,11 +172,14 @@ const Checkout = () => {
       const orderData = await orderRes.json();
 
       const options = {
-        key: "rzp_test_ShDY79CCrlIUB2",
+        key: import.meta.env.VITE_RAZORPAY_KEY;
         amount: orderData.amount,
         currency: "INR",
         order_id: orderData.id,
-
+        prefill: {
+        name: selectedAddress.name,
+        contact: selectedAddress.phone
+        }
         handler: async (response) => {
           await fetch(`${API}/api/checkout/payment/verify`, {
             method: "POST",
