@@ -348,9 +348,13 @@ const Checkout = () => {
               <span>₹{calculateTotal()}</span>
             </div>
 
-            <button onClick={handlePlaceOrder} className="ckx-btn">
-              {processing ? "Processing..." : "Place Order"}
-            </button>
+            <button
+  onClick={handlePlaceOrder}
+  className="ckx-btn"
+  disabled={processing}
+>
+  {processing ? "Processing..." : "Place Order"}
+</button>
           </div>
         </div>
       </div>
