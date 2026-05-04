@@ -111,7 +111,7 @@ function Home() {
                                     <img src={items[0].image} alt="" />
                                 )}
 
-                                <p onClick={() => navigate(`/category/${catName}`)}>
+                                <p onClick={() => navigate(`/search?category=${catName}`)}>
                                     Explore more
                                 </p>
 
