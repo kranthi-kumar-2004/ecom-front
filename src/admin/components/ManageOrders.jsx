@@ -4,7 +4,7 @@ import "./css/ManageOrders.css"
 function ManageOrders() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const API = import.meta.env.VITE_API_URL;
     useEffect(() => {
         fetchOrders();
     }, []);
