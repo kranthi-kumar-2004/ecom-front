@@ -7,16 +7,9 @@ import Loader from "./Loader";
 function Home() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [bannerIndex, setBannerIndex] = useState(0);
     const API = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
-    const banners = [
-        "https://m.media-amazon.com/images/I/619geyiQI5L._SX3000_.jpg",
-        "https://m.media-amazon.com/images/I/61Z5DaOEVeL._SX3000_.jpg",
-        "https://m.media-amazon.com/images/I/619geyiQI5L._SX3000_.jpg",
-        "https://m.media-amazon.com/images/I/61Yx5-N155L._SX3000_.jpg"
-    ];
 
     useEffect(() => {
         fetch(API+"/products/")
@@ -42,13 +35,7 @@ function Home() {
         }
     }, [products]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setBannerIndex(prev => (prev + 1) % banners.length);
-        }, 3000);
 
-        return () => clearInterval(interval);
-    }, []);
 
     const categoryMap = {};
     products.forEach(p => {
@@ -70,29 +57,8 @@ function Home() {
             ) : (
                 <div className="home">
 
-                    {/* 🔥 BANNER */}
-                    <div className="banner-slider">
-                        <div
-                            className="banner-track"
-                            style={{ transform: `translateX(-${bannerIndex * 100}%)` }}
-                        >
-                            {banners.map((img, i) => (
-                                <div className="banner-slide" key={i}>
-                                    <img src={img} alt="" />
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="dots">
-                            {banners.map((_, i) => (
-                                <div
-                                    key={i}
-                                    className={`dot ${bannerIndex === i ? "active" : ""}`}
-                                    onClick={() => setBannerIndex(i)}
-                                ></div>
-                            ))}
-                        </div>
-                    </div>
+                   
+                    
 
                     {/* 🔥 CATEGORY SECTION */}
                     <div className="category-section">
