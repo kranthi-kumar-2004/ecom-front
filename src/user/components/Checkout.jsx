@@ -232,6 +232,13 @@ const Checkout = () => {
 
   return (
     <div className="ckx-container">
+     {processing && (
+  <div className="processing-overlay">
+    <div className="processing-box">
+      Processing Order...
+    </div>
+  </div>
+)}
       <div style={{ marginBottom: "10px" }}>
         <button onClick={() => navigate(-1)} className="ckx-back">
           ← Back
