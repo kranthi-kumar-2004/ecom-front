@@ -1,105 +1,203 @@
 import { useEffect, useState } from "react";
-import "./css/ManageOrders.css"
+import "./css/ManageOrders.css";
 
 function ManageOrders() {
-    const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const API = import.meta.env.VITE_API_URL;
-    useEffect(() => {
-        fetchOrders();
-    }, []);
 
-    const fetchOrders = async () => {
-        try {
-            setLoading(true);
+  const [adminOrders, setAdminOrders] = useState([]);
 
-            const res = await fetch(API+"/api/orders");
+  const [adminLoading, setAdminLoading] = useState(false);
 
-            if (!res.ok) throw new Error("API failed");
+  const API = import.meta.env.VITE_API_URL;
 
-            const data = await res.json();
+  useEffect(() => {
 
-            setOrders(Array.isArray(data) ? data : []);
+    loadOrders();
 
-        } catch (err) {
-            console.error("Error:", err);
-            setOrders([]);
-        } finally {
-            setLoading(false);
-        }
-    };
+  }, []);
 
-    const updateStatus = async (id, status) => {
-        try {
-            await fetch(`${API}/api/orders/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
+  const loadOrders = async () => {
 
-                // ✅ FIXED key name
-                body: JSON.stringify({ deliveryStatus: status })
-            });
+    try {
 
-            fetchOrders();
-        } catch (err) {
-            console.error("Update error:", err);
-        }
-    };
+      setAdminLoading(true);
 
-    return (
-        <div className="orders-container">
-  <h2 className="orders-title">Manage Orders</h2>
+      const res = await fetch(API + "/api/orders");
 
-  {loading && <p className="empty-text">Loading...</p>}
+      if (!res.ok) {
+        throw new Error("API failed");
+      }
 
-  {!loading && orders.length === 0 && (
-    <p className="empty-text">No orders found</p>
-  )}
+      const data = await res.json();
 
-  <table className="orders-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>User</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Change</th>
-      </tr>
-    </thead>
+      setAdminOrders(
+  Array.isArray(data)
+    ? [...data].reverse()
+    : []
+);
 
-    <tbody>
-      {orders.map((o) => (
-        <tr key={o.id}>
-          <td>ORD-{o.id}</td>
-          <td>{o.userId || "N/A"}</td>
-          <td>₹{o.totalPrice || 0}</td>
+    } catch (err) {
 
-          {/* ✅ colored status */}
-          <td>
-  <span className={`status ${o.deliveryStatus}`}>
-    {o.deliveryStatus}
-  </span>
-</td>
+      console.error("Error:", err);
 
-          <td>
-            <select
-              className="status-select"
-              value={o.deliveryStatus || "Pending"}
-              onChange={(e) =>
-                updateStatus(o.id, e.target.value)
-              }
-            >
-              <option value="Pending">Pending</option>
-              <option value="Processing">Processing</option>
-              <option value="Shipping">Shipping</option>
-              <option value="Delivered">Delivered</option>
-            </select>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-    );
+      setAdminOrders([]);
+
+    } finally {
+
+      setAdminLoading(false);
+
+    }
+
+  };
+
+  const changeDeliveryStatus = async (
+    id,
+    status
+  ) => {
+
+    try {
+
+      await fetch(`${API}/api/orders/${id}`, {
+
+        method: "PUT",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          deliveryStatus: status,
+        }),
+
+      });
+
+      loadOrders();
+
+    } catch (err) {
+
+      console.error("Update error:", err);
+
+    }
+
+  };
+
+  return (
+
+    <div className="admin-orders-wrapper">
+
+      <h2 className="admin-orders-heading">
+        Manage Orders
+      </h2>
+
+      {adminLoading && (
+        <p className="admin-orders-empty">
+          Loading...
+        </p>
+      )}
+
+      {!adminLoading &&
+        adminOrders.length === 0 && (
+          <p className="admin-orders-empty">
+            No orders found
+          </p>
+        )}
+
+      <table className="admin-orders-table">
+
+        <thead>
+
+          <tr>
+
+            <th>Order ID</th>
+
+            <th>User</th>
+
+            <th>Amount</th>
+
+            <th>Status</th>
+
+            <th>Update</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {adminOrders.map((order) => (
+
+            <tr key={order.id}>
+
+              <td>
+                ORD-{order.id}
+              </td>
+
+              <td>
+                {order.userId || "N/A"}
+              </td>
+
+              <td>
+                ₹{order.totalPrice || 0}
+              </td>
+
+              <td>
+
+                <span
+                  className={`admin-status-badge ${order.deliveryStatus}`}
+                >
+                  {order.deliveryStatus}
+                </span>
+
+              </td>
+
+              <td>
+
+                <select
+                  className="admin-status-dropdown"
+
+                  value={
+                    order.deliveryStatus ||
+                    "Pending"
+                  }
+
+                  onChange={(e) =>
+                    changeDeliveryStatus(
+                      order.id,
+                      e.target.value
+                    )
+                  }
+                >
+
+                  <option value="Pending">
+                    Pending
+                  </option>
+
+                  <option value="Processing">
+                    Processing
+                  </option>
+
+                  <option value="Shipping">
+                    Shipping
+                  </option>
+
+                  <option value="Delivered">
+                    Delivered
+                  </option>
+
+                </select>
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  );
 }
 
 export default ManageOrders;
