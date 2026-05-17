@@ -4,7 +4,29 @@
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
+.processing-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 99999;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  touch-action: none;
+}
+
+.processing-box {
+  background: white;
+  padding: 20px 35px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
 /* ===== LAYOUT ===== */
 .ckx-layout {
   display: flex;
