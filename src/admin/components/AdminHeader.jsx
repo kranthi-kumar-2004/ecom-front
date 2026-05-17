@@ -9,19 +9,7 @@ function AdminHeader(){
               <Link to="/" className="logo">
     Smart Store
   </Link>
-            <div className="user_search">
-                <input type="text" placeholder="Search here...." />
-                <FaSearch className="search-icon"/>
-            </div>
-            <FaBell className="notification"/>
-            <FaBars className="user_menu"
-            onClick={()=>setOpen(!open)}
-            />
-            {open&&(<div className="user_dropdown-menu">
-                <Link>My Profile</Link>
-                <Link>Setting</Link>
-                <Link>Logout</Link>
-            </div>)}
+           
         </header>
     );
 }

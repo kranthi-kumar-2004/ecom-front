@@ -1,88 +1,171 @@
+// Header.jsx
+
 import "./css/Header.css";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaSearch } from "react-icons/fa";
+
 import Login from "./Login";
 import Register from "./Register";
-import Orders from "./Orders";
+import ForgotPassword from "./ForgotPassword";
 
 function Header() {
+
   const [open, setOpen] = useState(false);
+
   const [showLogin, setShowLogin] = useState(false);
+
   const [showRegister, setShowRegister] = useState(false);
+
+  // 🔥 Forgot Password state
+  const [showForgot, setShowForgot] = useState(false);
+
   const [searchText, setSearchText] = useState("");
 
   const menuRef = useRef(null);
+
   const navigate = useNavigate();
+
   const token = localStorage.getItem("token");
 
+  // 🔥 Get logged in email
+  const userEmail = localStorage.getItem("email");
+
   useEffect(() => {
+
     function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
+      ) {
         setOpen(false);
       }
     }
 
     document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-  const handleSearch = () => {
-  if (!searchText.trim()) return;
 
-  navigate(`/search?q=${searchText}&category=${searchText}`);
-};
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+
+  }, []);
+
+  const handleSearch = () => {
+
+    if (!searchText.trim()) return;
+
+    navigate(`/search?q=${searchText}&category=${searchText}`);
+  };
+
   const handleKeyDown = (e) => {
+
     if (e.key === "Enter") {
       handleSearch();
     }
   };
+
   const handleLogout = () => {
+
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
+
     navigate("/");
   };
 
   return (
     <>
+
       <header className="user_header">
 
-  {/* LEFT */}
-  <Link to="/" className="logo">
-    Smart Store
-  </Link>
+        {/* LEFT */}
+        <Link to="/" className="logo">
+          Smart Store
+        </Link>
 
-  {/* CENTER */}
-  <div className="user_search">
-    <input
-      type="text"
-      id="search"
-      placeholder="Search products..."
-      value={searchText}
-      onChange={(e) => setSearchText(e.target.value)}
-      onKeyDown={handleKeyDown}
-    />
-    <FaSearch className="search-icon" onClick={handleSearch} />
-  </div>
+        {/* CENTER */}
+        <div className="user_search">
 
-  {/* RIGHT */}
-  <div className="user_menu-bar" ref={menuRef}>
-    <Link to="/">Home</Link>
-    <Link to="/cart">Cart</Link>
+          <input
+            type="text"
+            id="search"
+            placeholder="Search products..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
 
-    <FaBars
-      className="user_menu"
-      onClick={() => setOpen(!open)}
-    />
+          <FaSearch
+            className="search-icon"
+            onClick={handleSearch}
+          />
 
-    {open && (
+        </div>
+
+        {/* RIGHT */}
+        <div className="user_menu-bar" ref={menuRef}>
+
+          <Link to="/">Home</Link>
+
+          <Link to="/cart">Cart</Link>
+
+          <FaBars
+            className="user_menu"
+            onClick={() => setOpen(!open)}
+          />
+
+          {open && (
+
             <div className="user_dropdown-menu">
-              <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-              <Link to="/cart" onClick={() => setOpen(false)}>Cart</Link>
+
+              <Link
+                to="/"
+                onClick={() => setOpen(false)}
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/cart"
+                onClick={() => setOpen(false)}
+              >
+                Cart
+              </Link>
 
               {token ? (
                 <>
-                  <Link to="/profile" onClick={() => setOpen(false)}>Profile</Link>
-                  <Link to="/orders" onClick={() => setOpen(false)}>Orders</Link>
-                  <Link to="/whishlist" onClick={() => setOpen(false)}>Wishlist</Link>
+
+                  <Link
+                    to="/profile"
+                    onClick={() => setOpen(false)}
+                  >
+                    Profile
+                  </Link>
+
+                  <Link
+                    to="/orders"
+                    onClick={() => setOpen(false)}
+                  >
+                    Orders
+                  </Link>
+
+                  <Link
+                    to="/whishlist"
+                    onClick={() => setOpen(false)}
+                  >
+                    Wishlist
+                  </Link>
+
+                  {/* 🔥 Admin Dashboard */}
+                  {userEmail === "admin@gmail.com" && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setOpen(false)}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+
                   <Link
                     onClick={() => {
                       handleLogout();
@@ -91,8 +174,10 @@ function Header() {
                   >
                     Logout
                   </Link>
+
                 </>
               ) : (
+
                 <Link
                   onClick={() => {
                     setShowLogin(true);
@@ -101,28 +186,41 @@ function Header() {
                 >
                   Login
                 </Link>
+
               )}
+
             </div>
+
           )}
+
         </div>
 
-</header>
+      </header>
 
-
+      {/* LOGIN */}
       {showLogin && (
         <Login
+
           close={() => setShowLogin(false)}
+
           openRegister={() => {
             setShowLogin(false);
             setShowRegister(true);
           }}
+
+          openForgot={() => {
+            setShowLogin(false);
+            setShowForgot(true);
+          }}
+
         />
       )}
 
-
+      {/* REGISTER */}
       {showRegister && (
         <Register
           close={() => setShowRegister(false)}
+
           openLogin={() => {
             setShowRegister(false);
             setShowLogin(true);
@@ -130,7 +228,23 @@ function Header() {
         />
       )}
 
-      
+      {/* FORGOT PASSWORD */}
+      {showForgot && (
+        <ForgotPassword
+
+          close={() => setShowForgot(false)}
+
+          openLogin={() => {
+
+  setShowForgot(false);
+
+  setShowLogin(true);
+
+}}
+
+        />
+      )}
+
     </>
   );
 }

@@ -298,6 +298,9 @@
   .banner-slide {
     height: 180px;
   }
+  footer{
+    display: none;
+  }
 }
 
 /* Small Mobile */

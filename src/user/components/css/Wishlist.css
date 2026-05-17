@@ -3,6 +3,9 @@
   max-width: 1200px;
   margin: auto;
 }
+.wishlist-container h2{
+  margin-left:12px
+}
 
 .title {
   text-align: center;

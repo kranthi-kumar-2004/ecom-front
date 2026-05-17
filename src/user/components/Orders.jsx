@@ -3,9 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./css/Orders.css";
 
 function Orders() {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ show: false, msg: "" });
+  const [purchaseList, setPurchaseList] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [alertBox, setAlertBox] = useState({
+    visible: false,
+    text: "",
+  });
 
   const API = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
@@ -13,97 +16,149 @@ function Orders() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const normalize = (s) => (s || "").toUpperCase();
+  const formatStatus = (text) => (text || "").toLowerCase();
 
-  const showToast = (message) => {
-    setToast({ show: true, msg: message });
-    setTimeout(() => setToast({ show: false, msg: "" }), 3000);
+  const triggerAlert = (msg) => {
+    setAlertBox({
+      visible: true,
+      text: msg,
+    });
+
+    setTimeout(() => {
+      setAlertBox({
+        visible: false,
+        text: "",
+      });
+    }, 3000);
   };
 
-  /* ✅ Show payment success toast */
+  /* PAYMENT SUCCESS */
   useEffect(() => {
     if (location.state?.success) {
-      showToast("Payment Successful");
+      triggerAlert("Payment Successful");
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
 
-  /* ✅ Fetch orders */
+  /* FETCH ORDERS */
   useEffect(() => {
     fetch(API + "/api/checkout/my-orders", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
-        setOrders([...data].reverse());
-        setLoading(false);
+        setPurchaseList([...data].reverse());
+        setPageLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => setPageLoading(false));
   }, []);
 
-  if (loading) return <h2 className="orders-loading">Loading Orders...</h2>;
+  if (pageLoading) {
+    return <h2 className="purchase-loader">Loading Orders...</h2>;
+  }
 
   return (
-    <div className="orders-container">
+    <section className="purchase-wrapper">
 
-      {toast.show && <div className="toast">{toast.msg}</div>}
+      {alertBox.visible && (
+        <div className="payment-alert">
+          {alertBox.text}
+        </div>
+      )}
 
-      <h2 className="orders-title">My Orders</h2>
+      <h2 className="purchase-heading">My Orders</h2>
 
-      {orders.length === 0 ? (
-        <p className="no-orders">No orders found</p>
+      {purchaseList.length === 0 ? (
+        <p className="empty-purchase">
+          No orders found
+        </p>
       ) : (
-        orders.map((order) => (
-          <div key={order.order_id} className="order-card">
+        purchaseList.map((order) => (
+          <div key={order.order_id} className="purchase-card">
 
-            {/* HEADER */}
-            <div className="order-header">
-              <div>
-                <p className="order-id">Order ID</p>
-                <h4>{order.order_id}</h4>
+            {/* TOP SECTION */}
+            <div className="purchase-top">
 
-                <p className="date">
+              <div className="purchase-info">
+                <span className="purchase-label">
+                  Order ID
+                </span>
+
+                <h4 className="purchase-number">
+                  {order.order_id}
+                </h4>
+
+                <p className="delivery-text">
                   {order.order_date
                     ? (() => {
                         const d = new Date(order.order_date);
                         d.setDate(d.getDate() + 2);
-                        return "Delivery by " + d.toLocaleDateString();
+
+                        return (
+                          "Delivery by " +
+                          d.toLocaleDateString()
+                        );
                       })()
                     : "Delivery soon"}
                 </p>
               </div>
 
-              <div className="order-right">
-                <p>Total</p>
-                <h3 className="total">₹{order.total_price}</h3>
+              <div className="purchase-summary">
+
+                <span className="amount-label">
+                  Total Amount
+                </span>
+
+                <h3 className="amount-price">
+                  ₹{order.total_price}
+                </h3>
 
                 <span
-                  className={`status ${normalize(order.delivery_status).toLowerCase()}`}
+                  className={`delivery-badge ${formatStatus(
+                    order.delivery_status
+                  )}`}
                 >
                   {order.delivery_status}
                 </span>
+
               </div>
             </div>
 
-            {/* BODY */}
-            <div className="order-body">
-              <div className="order-items-left">
+            {/* PRODUCTS */}
+            <div className="purchase-content">
 
-                {order.items.map((item, i) => (
-                  <div key={i} className="order-item">
-                    <img src={item.productImage || "/default.png"} alt="" />
-                    <div>
-                      <p>{item.productName}</p>
-                      <small>Qty: {item.quantity}</small>
+              <div className="purchase-products">
+
+                {order.items.map((item, index) => (
+                  <div key={index} className="single-product">
+
+                    <img
+                      src={item.productImage || "/default.png"}
+                      alt=""
+                      className="product-thumb"
+                    />
+
+                    <div className="product-meta">
+                      <p className="product-title">
+                        {item.productName}
+                      </p>
+
+                      <small className="product-qty">
+                        Qty : {item.quantity}
+                      </small>
                     </div>
+
                   </div>
                 ))}
 
-                {/* VIEW DETAILS BUTTON */}
                 <button
-                  className="view-btn"
+                  className="details-button"
                   onClick={() =>
-                    navigate(`/order/${order.order_id}`, { state: order })
+                    navigate(`/order/${order.order_id}`, {
+                      state: order,
+                    })
                   }
                 >
                   View Details
@@ -115,7 +170,7 @@ function Orders() {
           </div>
         ))
       )}
-    </div>
+    </section>
   );
 }
 

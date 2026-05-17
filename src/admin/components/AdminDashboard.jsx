@@ -85,7 +85,6 @@ fetch(`${API}/api/orders`)
                 <Link className="manage-p" to="/admin/manage">Manage Product</Link>
                 <Link to="/admin/manage-orders">Manage Orders</Link>
                 <Link to="/admin/manage-users">Manage Users</Link>
-                <Link to="/admin/manage">Manage Staff</Link>
             </div>
             <div className="Recent">
                 <h4>Recent Orders</h4>
@@ -115,7 +114,6 @@ fetch(`${API}/api/orders`)
                         </tbody>
                     </table>
                 )}
-                <button>View All Orders</button>
             </div>
 
         </div>
