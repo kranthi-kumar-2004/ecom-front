@@ -1,129 +1,221 @@
-/* ===== Container ===== */
+/* ===== Main Wrapper ===== */
 
-.orders-container {
-  padding: 24px;
-  background: #020617;
+.admin-orders-wrapper {
+  padding: 25px;
   min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-  color: #e2e8f0;
+  background: #f8fafc;
+  font-family: "Inter", sans-serif;
 }
 
-/* ===== Table Wrapper (for shadow + rounded look) ===== */
-.orders-table {
+/* ===== Heading ===== */
+
+.admin-orders-heading {
+  font-size: 30px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 25px;
+}
+
+/* ===== Empty Text ===== */
+
+.admin-orders-empty {
+  text-align: center;
+  font-size: 16px;
+  color: #64748b;
+  margin-top: 20px;
+}
+
+/* ===== Table ===== */
+
+.admin-orders-table {
   width: 100%;
   border-collapse: collapse;
-  background: #020617;
-  border-radius: 14px;
+  background: #ffffff;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== Header ===== */
-.orders-table thead {
-  background: linear-gradient(to right, #0f172a, #020617);
+/* ===== Table Header ===== */
+
+.admin-orders-table thead {
+  background: linear-gradient(
+    to right,
+    #2563eb,
+    #1d4ed8
+  );
 }
 
-.orders-table th {
-  padding: 16px;
+.admin-orders-table th {
+  padding: 18px;
   text-align: center;
-  color: #94a3b8;
-  font-weight: 600;
+  color: white;
   font-size: 14px;
+  font-weight: 600;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
 }
 
 /* ===== Table Body ===== */
-.orders-table td {
-  padding: 16px;
+
+.admin-orders-table td {
+  padding: 18px;
   text-align: center;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: 1px solid #e2e8f0;
   font-size: 14px;
+  color: #334155;
+  font-weight: 500;
 }
 
-/* ===== Row Hover ===== */
-.orders-table tbody tr {
+/* ===== Hover Effect ===== */
+
+.admin-orders-table tbody tr {
   transition: all 0.25s ease;
 }
 
-.orders-table tbody tr:hover {
-  background: rgba(15, 23, 42, 0.8);
-  transform: scale(1.01);
+.admin-orders-table tbody tr:hover {
+  background: #f1f5f9;
+  transform: scale(1.005);
 }
 
 /* ===== Status Badge ===== */
-.status {
-  padding: 6px 14px;
+
+.admin-status-badge {
+  padding: 7px 16px;
   border-radius: 999px;
-  font-weight: 600;
   font-size: 12px;
+  font-weight: 700;
   display: inline-block;
-  letter-spacing: 0.3px;
 }
 
 /* ===== Status Colors ===== */
-.status.Pending {
-  background: rgba(250, 204, 21, 0.15);
-  color: #facc15;
+
+.admin-status-badge.Pending {
+  background: #fef9c3;
+  color: #ca8a04;
 }
 
-.status.Processing {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
+.admin-status-badge.Processing {
+  background: #dbeafe;
+  color: #2563eb;
 }
 
-.status.Shipping {
-  background: rgba(167, 139, 250, 0.15);
-  color: #a78bfa;
+.admin-status-badge.Shipping {
+  background: #ede9fe;
+  color: #7c3aed;
 }
 
-.status.Delivered {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
+.admin-status-badge.Delivered {
+  background: #dcfce7;
+  color: #16a34a;
 }
 
-/* ===== Status Dropdown ===== */
-.status-select {
-  background: #020617;
-  color: #22c55e;
-  border: 1px solid #1e293b;
-  padding: 6px 12px;
-  border-radius: 8px;
+/* ===== Dropdown ===== */
+
+.admin-status-dropdown {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease;
 }
 
-.status-select:hover {
-  border-color: #38bdf8;
+.admin-status-dropdown:hover {
+  border-color: #2563eb;
 }
 
-.status-select:focus {
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+.admin-status-dropdown:focus {
+  border-color: #2563eb;
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-/* ===== Column Width ===== */
-.orders-table td,
-.orders-table th {
-  min-width: 120px;
-}
+/* ===== Responsive ===== */
 
-/* ===== Responsive (Mobile Scroll) ===== */
-.orders-container {
+.admin-orders-wrapper {
   overflow-x: auto;
 }
 
-/* ===== Scrollbar Styling ===== */
-.orders-container::-webkit-scrollbar {
-  height: 6px;
+.admin-orders-table th,
+.admin-orders-table td {
+  min-width: 130px;
 }
 
-.orders-container::-webkit-scrollbar-thumb {
-  background: #1e293b;
+/* ===== Scrollbar ===== */
+
+.admin-orders-wrapper::-webkit-scrollbar {
+  height: 7px;
+}
+
+.admin-orders-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
   border-radius: 10px;
 }
 
-.orders-container::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+.admin-orders-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+/* ===== Mobile Responsive ===== */
+
+@media (max-width: 768px) {
+
+  .admin-orders-wrapper {
+    padding: 15px;
+  }
+
+  .admin-orders-heading {
+    font-size: 22px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .admin-orders-table {
+    border-radius: 12px;
+  }
+
+  .admin-orders-table th {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .admin-orders-table td {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .admin-status-badge {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .admin-status-dropdown {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+}
+
+/* ===== Small Mobile ===== */
+
+@media (max-width: 480px) {
+
+  .admin-orders-heading {
+    font-size: 20px;
+  }
+
+  .admin-orders-table th,
+  .admin-orders-table td {
+    min-width: 100px;
+    font-size: 11px;
+  }
+
+  .admin-status-dropdown {
+    width: 100%;
+  }
+
 }
