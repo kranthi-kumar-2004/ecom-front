@@ -1,0 +1,143 @@
+/* ===== Wrapper ===== */
+
+.manage-users-wrapper {
+  padding: 25px;
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: "Inter", sans-serif;
+  overflow-x: auto;
+}
+
+/* ===== Heading ===== */
+
+.manage-users-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 25px;
+}
+
+/* ===== Text ===== */
+
+.manage-users-text {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* ===== Table ===== */
+
+.manage-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Header ===== */
+
+.manage-users-table thead {
+  background: linear-gradient(
+    to right,
+    #2563eb,
+    #1d4ed8
+  );
+}
+
+.manage-users-table th {
+  padding: 18px;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Body ===== */
+
+.manage-users-table td {
+  padding: 18px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ===== Hover ===== */
+
+.manage-users-table tbody tr {
+  transition: all 0.25s ease;
+}
+
+.manage-users-table tbody tr:hover {
+  background: #f1f5f9;
+  transform: scale(1.005);
+}
+
+/* ===== Column Width ===== */
+
+.manage-users-table th,
+.manage-users-table td {
+  min-width: 140px;
+}
+
+/* ===== Scrollbar ===== */
+
+.manage-users-wrapper::-webkit-scrollbar {
+  height: 7px;
+}
+
+.manage-users-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.manage-users-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== Tablet ===== */
+
+@media (max-width: 768px) {
+
+  .manage-users-wrapper {
+    padding: 15px;
+  }
+
+  .manage-users-title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .manage-users-table th {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .manage-users-table td {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 480px) {
+
+  .manage-users-title {
+    font-size: 20px;
+  }
+
+  .manage-users-table th,
+  .manage-users-table td {
+    min-width: 110px;
+    font-size: 11px;
+  }
+
+}
