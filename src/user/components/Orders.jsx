@@ -75,7 +75,12 @@ function Orders() {
           No orders found
         </p>
       ) : (
-        purchaseList.map((order) => (
+        purchaseList
+  .filter(
+    (order) =>
+      order.payment_mode !== "ONLINE"
+  )
+  .map((order) => (
           <div key={order.order_id} className="purchase-card">
 
             {/* TOP SECTION */}
